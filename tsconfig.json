@@ -5,16 +5,27 @@
   "compilerOptions": {
     "target": "es5",
     "module": "system",
+    "moduleResolution": "node",
     /* the following two settings are required for angular2 annotations to work*/
     "emitDecoratorMetadata": true,
     "experimentalDecorators":true,
     /* for reading your ts source while debugging from a browser */
     "sourceMap": true,
+    "rootDirs": ["app/assets","test/assets"],
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*",
+        "target/web/node-modules/main/webjars/*"
+      ]
+    },
     /* noImplicitAny when you want your typescript to be fully typed */
     "noImplicitAny":true,
     "noFallthroughCasesInSwitch":true,
     "noImplicitReturns":true,
-    "outDir": "./target/ts"
+    // "strictNullChecks":true, doesn't work yet with @angular RC4
+    "outDir": "./target/ts",
+    "lib": ["es6", "dom"]
   },
   /* the information below is not used by sbt-typescript. but you can use it if you want to run tsc -p .*/
   "exclude": [

@@ -1,19 +1,21 @@
-import {Injectable} from "angular2/core"
+import {Injectable} from "@angular/core"
 import {TodoStore} from "./todo.store"
-import { Http, Response } from "angular2/http"
+import { Http, Response } from "@angular/http"
 import { Observable } from "rxjs/Observable"
 import { Observer } from "rxjs/Observer"
 
-import { Headers, RequestOptions } from "angular2/http"
+import { Headers, RequestOptions } from "@angular/http"
 
 import "rxjs/add/operator/map"
 import "rxjs/add/operator/catch"
+import "rxjs/add/observable/empty"
 
 export interface Todo {
     completed: Boolean
     editing: Boolean
     title: String
 }
+
 @Injectable()
 export class RemoteStorageTodoStore implements TodoStore {
     todos:Array<Todo> = []
@@ -21,11 +23,11 @@ export class RemoteStorageTodoStore implements TodoStore {
     errorMessage: string
 
     constructor(private http: Http) {
-        let parent: RemoteStorageTodoStore = this
         this.getTodos()
             .subscribe(
-                todos => parent.todos = todos,
-                error =>  parent.errorMessage = <any>error)
+                tds => this.todos = tds,
+                error =>  this.errorMessage = error
+            )
     }
 
     getTodos (): Observable<Todo[]> {
@@ -43,7 +45,7 @@ export class RemoteStorageTodoStore implements TodoStore {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : "Server error"
         console.error(errMsg) // log to console instead
-        return Observable.throw(errMsg)
+        return Observable.empty()
     }
 
     private updateStore() {
@@ -52,8 +54,8 @@ export class RemoteStorageTodoStore implements TodoStore {
         return this.http.post(this.toDoUrl, JSON.stringify(this.todos), options)
             .map(this.extractData)
             .catch(this.handleError)
-            .subscribe(todos => alert("success"),
-                       error =>  alert("fail"))
+            .subscribe(todos => console.log("updated the store successfully"),
+                       error =>  console.log(`received an error ${error}`))
     }
 
     private getWithCompleted(completed:Boolean) {

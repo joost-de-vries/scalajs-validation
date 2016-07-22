@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /todos                      controllers.Application.todos
+GET     /todos                      controllers.Application.getTodos
 POST    /todos                      controllers.Application.updateTodos
 
 # Map static resources from the /public folder to the /assets URL path

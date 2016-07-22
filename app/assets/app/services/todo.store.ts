@@ -1,5 +1,7 @@
 import {Todo} from "./store"
+import {Injectable} from "@angular/core"
 
+@Injectable()
 export abstract class TodoStore {
 
     abstract allCompleted():boolean

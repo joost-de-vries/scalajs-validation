@@ -46,10 +46,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
     },
     dependencyOverrides += "org.webjars.npm" % "minimatch" % "3.0.0",
 
-    // the typescript typing information is by convention in the typings directory
-    // It provides ES6 implementations. This is required when compiling to ES5.
-    typingsFile := Some(baseDirectory.value / "typings" / "index.d.ts"),
-
     // use the webjars npm directory (target/web/node_modules ) for resolution of module imports of angular2/core etc
     resolveFromWebjarsNodeModulesDir := true,
 
@@ -68,7 +64,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 lazy val client = (project in file("client"))
   .settings(commonSettings)
   .settings(
-  persistLauncher := false,
+  persistLauncher := true,
   persistLauncher in Test := false,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.8.0"

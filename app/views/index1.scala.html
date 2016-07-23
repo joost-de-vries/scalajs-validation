@@ -13,6 +13,7 @@
         <script type='text/javascript' src='@routes.Assets.versioned("lib/zone.js/dist/zone.js")'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("lib/reflect-metadata/Reflect.js")'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("lib/systemjs/dist/system.src.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("client-fastopt.js")'></script>
 
         <script>    @* our app is downloaded as individual javascript files by SystemJs
                      after compilation by sbt-typescript*@
@@ -69,6 +70,7 @@
         System.import('app')
             .catch(console.error.bind(console));
 
+            console.log("scalajs says "+validation.Validation().hello("browser"));
 		</script>
     </head>
     <body>

@@ -5,7 +5,7 @@ name := """scalajs-validation"""
 version := "0.2.0-beta.1"
 
 
-lazy val scalaJsProjects = Seq(client)
+lazy val scalaJsProjects = Seq(sharedJs)
 
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
@@ -54,23 +54,23 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
       tslintEslintRulesDir.value //,    disable codelyzer until it supports ts 2.0
       //  ng2LintRulesDir.valuej
     )),
-    scalaJSProjects := Seq(client)
+    scalaJSProjects := Seq(sharedJs)
 
 
-  ).aggregate(projectToRef(client))
+  ).aggregate(projectToRef(sharedJs))
   .dependsOn(sharedJvm)
 
 
-lazy val client = (project in file("client"))
-  .settings(commonSettings)
-  .settings(
-  persistLauncher := true,
-  persistLauncher in Test := false,
-  libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.8.0"
-  )
-).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
-  dependsOn(sharedJs)
+//lazy val client = (project in file("client"))
+//  .settings(commonSettings)
+//  .settings(
+//  persistLauncher := true,
+//  persistLauncher in Test := false,
+//  libraryDependencies ++= Seq(
+//    "org.scala-js" %%% "scalajs-dom" % "0.8.0"
+//  )
+//).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
+//  dependsOn(sharedJs)
 
 lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
   settings(commonSettings:_*)
